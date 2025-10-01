@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="stylesheet" href="teste.css">
+    <link rel="stylesheet" href="reset.css">
+</head>
+<body>
+    <div class="main__container">
+        <header class="cabecalho">
+            <div class="input">
+                <a class="brand">
+                    <svg class="brand-logo" width="28" heigth="28" viewbox="0 0 24 24" fill="none">
+                        <rect width="24" heigth="24" rx="6" fill="currentColor" opacity="0.08"></rect>
+                        <path d="M6 12.5l4 4 8-9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="texto">Produtivo</span>
+                </a>
+                
+            </div>
+            <nav class="links">
+                <ul>
+                    <li> Tarefas </li>
+                    <li> Projetos </li>
+                    <li> Calendário </li>
+                </ul>
+            </nav>
+
+            <div class="botoes__tarefas">
+                <button>
+                    +Tarefas
+                </button>
+                <button>
+                    🌗
+                </button>
+                <img src="ccc" alt="ccc">
+
+            </div>
+        </header>
+        <div class="conteudo__lateral">
+            <aside class="filtros">
+                <div class="filtro__container">
+                    <h2 class="filtros__titulo">Filtros</h2>
+                    <form class="filtro__formulario">
+                        <p class="filtros__subtitulo">Refine sua lista de tarefas</p>
+                        <fieldset class="filtros__group">
+                            <legend class="filtros__legenda">Status</legend>
+                            <label class="filtro__opcoes" for="aberta">
+                                <input type="checkbox" name="aberta" id="aberta">
+                                Aberta
+                            </label>
+                            <label class="filtro__opcoes" for="concluida">
+                                <input type="checkbox" name="concluida" id="concluida">
+                                Concluída
+                            </label>
+                        </fieldset>
+                         <fieldset class="filtros__group">
+                            <legend class="filtros__legenda">Prioridade</legend>
+                            <label class="filtro__opcoes" for="todas">
+                                <input type="radio" name="prioridade" value="todas">
+                                Todas
+                            </label>
+                            <label class="filtro__opcoes" for="alta">
+                                <input type="radio" name="prioridade" value="alta">
+                                Alta
+                            </label>
+                            <label class="filtro__opcoes" for="media">
+                                <input type="radio" name="prioridade" value="media">
+                                Media
+                            </label>
+                            <label class="filtro__opcoes" for="baixa">
+                                <input type="radio" name="prioridade" value="baixa">
+                                Baixa
+                            </label>
+                        </fieldset>
+                         <fieldset class="filtros__group">
+                            <legend class="filtros__legenda">Tags</legend>
+                            <div>
+                                <button>Trabalho</button>
+                                <button>Pessoal</button>
+                                <button>Estudos</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </aside>
+            <aside class="listas">
+                <h2 class="listas-titulo">Listas</h2>
+                <nav class="lista-nav">
+                    <ul class="lista-nav__lista">
+                        <li class="lista-nav__item"><a class="lista-nav__link">Hoje</a></li>
+                        <li class="lista-nav__item"><a class="lista-nav__link">Proximo 7 dias</a></li>
+                        <li class="lista-nav__item"><a class="lista-nav__link">Inbox</a></li>
+                        <li class="lista-nav__item"><a class="lista-nav__link">Arquivadas</a></li>
+                    </ul>
+                </nav>
+            </aside>
+        </div>
+        <main class="container">
+            <section class="tarefas">
+               <header class="task__header">
+                    <div class="tarefas__heading">
+                        <h2>
+                            Tarefas
+                        </h2>
+                        <p>Organize seu dia e alcance mais 📈</p>
+                    </div>
+
+                     <div class="dropdown__container">
+                         <div class="opcoes">
+                            <label class="dropbtn__opcoes" for="ordenar">Ordenar:</label>
+                            <select id="ordenar" name="ordenar" class="dropdown__conteudo-opcoes">
+                                <option>
+                                    <a href="#" value="data">Data</a>
+                                </option>
+                                <option>
+                                    <a href="#" value="prioridade">Prioridade</a>
+                                </option>
+                                <option>
+                                    <a href="#" value="titulo">Titulo</a>
+                                </option>
+                            </select>
+                         </div>
+                         <div class="agrupar">
+                            <label class="dropbtn__agrupar" for="agrupar">Agrupar:</label>
+                            <select id="agrupar" name="agrupar" class="dropdown__conteudo-agrupar">
+                                <option>
+                                    <a href="#" value="nenhum">Nenhum</a>
+                                </option>
+                                <option>
+                                    <a href="#" value="tags">Tags</a>
+                                </option>
+                                <option>
+                                    <a href="#" value="projetos">Projetos</a>
+                                </option>
+                            </select>
+                         </div>
+                     </div>   
+
+               </header>
+               <form class="formulario__tarefa">
+                    <h2>Nova Tarefa</h2>
+                    <div class="tarefa__titulo">
+                        <label for="titulo">Titulo</label>
+                        <input id="titulo" name="titulo" type="text" placeholder="Ex.: Enviar relatório">
+                    </div>
+
+                    <div class="tarefa__grid">
+                        <div class="tarefa__data tarefa__grid-rows">
+                            <label for="data">Data</label>
+                            <input id="data" name="data" type="date">
+                        </div>
+                        <div class="tarefa__prioridade tarefa__grid-rows">
+                            <label for="prioridade">Prioridade</label>
+                            <select id="prioridade" name="prioridade">
+                                <option value="baixa">Baixa</option>
+                                <option value="media" selected>Media</option>
+                                <option value="alta">Alta</option>
+                            </select>
+                        </div>
+                        <div class="tarefa__projetos tarefa__grid-rows">
+                            <label for="projetos">Projetos</label>
+                            <input id="projetos" name="projetos" type="text" placeholder="Projetos">
+                        </div>
+                    </div>
+                    <div class="tarefa__tags">
+                        <label for="tags">Tags</label>
+                        <input id="tags" name="tags" type="text" placeholder="Separe por virgula (ex: trabalho, urgente!)">
+                    </div>
+                    <div class="tarefa__botoes">
+                        <button type="submit">Adicionar</button>
+                        <button type="reset">Limpar</button>
+                    </div>
+               </form>
+            </section>
+            <ul class="lista__tarefas">
+                <li class="lista__tarefas-item">
+                    <article class="card-tarefas">
+                        <input type="checkbox" name="lista-titulo" id="lista-titulo">
+                        <label for="lista-titulo">Finalizar layout da homepage</label>
+                        <div>
+                            <span>Alta</span>
+                            <time datetime="2025-09-24">30 set</time>
+                            <span>Trabalho</span>
+                            <span>UI</span>
+                        </div>
+                        <menu>
+                            <button type="button" aria-label="Editar tarefa">✏️</button>
+                            <button type="button" aria-label="Adicionar aos favoritos">⭐</button>
+                            <button type="button" aria-label="Excluir tarefa">🗑️</button>
+                        </menu>
+                    </article>
+                </li>
+                <li class="lista__tarefas-item">
+                    <article class="card-tarefas">
+                        <input type="checkbox" name="lista-titulo" id="lista-titulo">
+                        <label for="lista-titulo">Finalizar layout da homepage</label>
+                        <div>
+                            <span>Alta</span>
+                            <time datetime="2025-09-24">30 set</time>
+                            <span>Trabalho</span>
+                            <span>UI</span>
+                        </div>
+                        <menu>
+                            <button type="button" aria-label="Editar tarefa">✏️</button>
+                            <button type="button" aria-label="Adicionar aos favoritos">⭐</button>
+                            <button type="button" aria-label="Excluir tarefa">🗑️</button>
+                        </menu>
+                    </article>
+                </li>
+                <li class="lista__tarefas-item">
+                    <article class="card-tarefas">
+                        <input type="checkbox" name="lista-titulo" id="lista-titulo">
+                        <label for="lista-titulo">Finalizar layout da homepage</label>
+                        <div>
+                            <span>Alta</span>
+                            <time datetime="2025-09-24">30 set</time>
+                            <span>Trabalho</span>
+                            <span>UI</span>
+                        </div>
+                        <menu>
+                            <button type="button" aria-label="Editar tarefa">✏️</button>
+                            <button type="button" aria-label="Adicionar aos favoritos">⭐</button>
+                            <button type="button" aria-label="Excluir tarefa">🗑️</button>
+                        </menu>
+                    </article>
+                </li>
+            </ul>
+        </main>
+        <footer class="rodape-container">
+            <div class="rodape">
+                <p class="texto">© 2025 Produtivo</p>
+                <nav>
+                    <ul>
+                        <li>Privacidade</li>
+                        <li>Termos</li>
+                        <li>Contato</li>
+                    </ul>
+                </nav>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

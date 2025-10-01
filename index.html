@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Produtivo — Gerenciador de Tarefas</title>
+  <meta name="description" content="Gerencie suas tarefas com listas, filtros e prioridades. Interface limpa, rápida e responsiva." />
+  <link rel="canonical" href="https://seu-dominio.com/" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Produtivo — Gerenciador de Tarefas" />
+  <meta property="og:description" content="Gerencie suas tarefas com listas, filtros e prioridades." />
+  <meta property="og:url" content="https://seu-dominio.com/" />
+  <meta property="og:image" content="https://seu-dominio.com/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Ícones -->
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <!-- Fontes e CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skiplink" href="#conteudo">Ir para o conteúdo</a>
+
+  <header class="app-header" role="banner">
+    <div class="app-header__inner container">
+      <a class="brand" href="/" aria-label="Página inicial">
+        <svg class="brand__logo" width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect width="24" height="24" rx="6" fill="currentColor" opacity="0.08"></rect>
+          <path d="M6 12.5l4 4 8-9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="brand__name">Produtivo</span>
+      </a>
+
+      <form class="search" role="search" aria-label="Buscar tarefas">
+        <label class="u-sr-only" for="q">Buscar</label>
+        <input class="search__input" id="q" name="q" type="search" placeholder="Buscar tarefas..." autocomplete="off" />
+        <button class="btn btn--ghost search__btn" type="submit" aria-label="Pesquisar">🔍</button>
+      </form>
+
+      <nav class="main-nav" aria-label="Navegação principal">
+        <ul class="main-nav__list">
+          <li class="main-nav__item"><a class="main-nav__link main-nav__link--active" href="#">Tarefas</a></li>
+          <li class="main-nav__item"><a class="main-nav__link" href="#">Projetos</a></li>
+          <li class="main-nav__item"><a class="main-nav__link" href="#">Calendário</a></li>
+        </ul>
+      </nav>
+
+      <div class="app-header__actions">
+        <button class="btn btn--primary" type="button">+ Nova tarefa</button>
+        <button class="btn btn--ghost" type="button" aria-label="Alternar tema">🌓</button>
+        <img class="avatar" src="https://i.pravatar.cc/32?img=3" alt="Seu perfil" width="32" height="32" decoding="async" />
+      </div>
+    </div>
+  </header>
+
+  <main id="conteudo" class="layout" role="main">
+    <aside class="sidebar" aria-labelledby="filtros-heading">
+      <div class="sidebar__section">
+        <h2 id="filtros-heading" class="sidebar__title">Filtros</h2>
+
+        <form class="filters" aria-describedby="filters-help">
+          <p id="filters-help" class="sidebar__help">Refine sua lista de tarefas</p>
+
+          <fieldset class="filters__group">
+            <legend class="filters__legend">Status</legend>
+            <label class="filters__option">
+              <input class="filters__checkbox" type="checkbox" name="status" value="abertas" checked />
+              Abertas
+            </label>
+            <label class="filters__option">
+              <input class="filters__checkbox" type="checkbox" name="status" value="concluidas" />
+              Concluídas
+            </label>
+          </fieldset>
+
+          <fieldset class="filters__group">
+            <legend class="filters__legend">Prioridade</legend>
+            <label class="filters__option">
+              <input class="filters__radio" type="radio" name="prioridade" value="todas" checked />
+              Todas
+            </label>
+            <label class="filters__option"><input class="filters__radio" type="radio" name="prioridade" value="alta" /> Alta</label>
+            <label class="filters__option"><input class="filters__radio" type="radio" name="prioridade" value="media" /> Média</label>
+            <label class="filters__option"><input class="filters__radio" type="radio" name="prioridade" value="baixa" /> Baixa</label>
+          </fieldset>
+
+          <fieldset class="filters__group">
+            <legend class="filters__legend">Tags</legend>
+            <div class="chips">
+              <button class="chip chip--selected" type="button" aria-pressed="true">Trabalho</button>
+              <button class="chip" type="button" aria-pressed="false">Pessoal</button>
+              <button class="chip" type="button" aria-pressed="false">Estudos</button>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+
+      <div class="sidebar__section">
+        <h2 class="sidebar__title">Listas</h2>
+        <nav class="lists-nav" aria-label="Listas">
+          <ul class="lists-nav__list">
+            <li class="lists-nav__item"><a class="lists-nav__link lists-nav__link--active" href="#">Hoje</a></li>
+            <li class="lists-nav__item"><a class="lists-nav__link" href="#">Próximos 7 dias</a></li>
+            <li class="lists-nav__item"><a class="lists-nav__link" href="#">Inbox</a></li>
+            <li class="lists-nav__item"><a class="lists-nav__link" href="#">Arquivadas</a></li>
+          </ul>
+        </nav>
+      </div>
+    </aside>
+
+    <section class="tasks" aria-labelledby="tarefas-heading">
+      <header class="tasks__header">
+        <div class="tasks__heading">
+          <h1 id="tarefas-heading" class="tasks__title">Tarefas</h1>
+          <p class="tasks__subtitle">Organize seu dia e alcance mais 📈</p>
+        </div>
+
+        <div class="toolbar">
+          <label class="toolbar__control">
+            Ordenar:
+            <select class="toolbar__select" aria-label="Ordenar tarefas">
+              <option value="data">Data</option>
+              <option value="prioridade">Prioridade</option>
+              <option value="titulo">Título</option>
+            </select>
+          </label>
+          <label class="toolbar__control">
+            Agrupar:
+            <select class="toolbar__select" aria-label="Agrupar tarefas">
+              <option value="nenhum">Nenhum</option>
+              <option value="tag">Tag</option>
+              <option value="projeto">Projeto</option>
+            </select>
+          </label>
+        </div>
+      </header>
+
+      <form class="task-form" aria-labelledby="nova-tarefa-title">
+        <h2 id="nova-tarefa-title" class="task-form__title">Nova tarefa</h2>
+
+        <div class="task-form__row">
+          <label class="task-form__label" for="titulo">Título</label>
+          <input class="task-form__input" id="titulo" name="titulo" type="text" placeholder="Ex.: Enviar relatório" required />
+        </div>
+
+        <div class="task-form__row task-form__row--grid">
+          <div class="task-form__field">
+            <label class="task-form__label" for="data">Data</label>
+            <input class="task-form__input" id="data" name="data" type="date" />
+          </div>
+          <div class="task-form__field">
+            <label class="task-form__label" for="prioridade">Prioridade</label>
+            <select class="task-form__input" id="prioridade" name="prioridade">
+              <option value="baixa">Baixa</option>
+              <option value="media" selected>Média</option>
+              <option value="alta">Alta</option>
+            </select>
+          </div>
+          <div class="task-form__field">
+            <label class="task-form__label" for="projeto">Projeto</label>
+            <input class="task-form__input" id="projeto" name="projeto" type="text" placeholder="Ex.: App Mobile" />
+          </div>
+        </div>
+
+        <div class="task-form__row">
+          <label class="task-form__label" for="tags">Tags</label>
+          <input class="task-form__input" id="tags" name="tags" type="text" placeholder="Separe por vírgula (ex.: trabalho, urgente)" />
+        </div>
+
+        <div class="task-form__actions">
+          <button class="btn btn--primary" type="submit">Adicionar</button>
+          <button class="btn btn--ghost" type="reset">Limpar</button>
+        </div>
+      </form>
+
+      <ul class="task-list" aria-live="polite">
+        <li class="task-list__item">
+          <article class="task-card" aria-labelledby="t1-title">
+            <div class="task-card__main">
+              <input class="task-card__check" id="t1" name="t1" type="checkbox" aria-describedby="t1-meta" />
+              <label class="task-card__title" id="t1-title" for="t1">Finalizar layout da homepage</label>
+            </div>
+            <div class="task-card__meta" id="t1-meta">
+              <span class="badge badge--priority-high">Alta</span>
+              <time class="badge badge--date" datetime="2025-09-30">30 set</time>
+              <span class="tag">Trabalho</span>
+              <span class="tag">UI</span>
+            </div>
+            <menu class="task-card__actions" type="toolbar">
+              <button class="icon-btn" type="button" aria-label="Editar tarefa">✏️</button>
+              <button class="icon-btn" type="button" aria-label="Adicionar aos favoritos" aria-pressed="false">⭐</button>
+              <button class="icon-btn icon-btn--danger" type="button" aria-label="Excluir tarefa">🗑️</button>
+            </menu>
+          </article>
+        </li>
+
+        <li class="task-list__item">
+          <article class="task-card task-card--completed" aria-labelledby="t2-title">
+            <div class="task-card__main">
+              <input class="task-card__check" id="t2" name="t2" type="checkbox" checked aria-describedby="t2-meta" />
+              <label class="task-card__title" id="t2-title" for="t2">Enviar proposta para o cliente</label>
+            </div>
+            <div class="task-card__meta" id="t2-meta">
+              <span class="badge badge--priority-medium">Média</span>
+              <time class="badge badge--date" datetime="2025-09-24">24 set</time>
+              <span class="tag">Comercial</span>
+            </div>
+            <menu class="task-card__actions" type="toolbar">
+              <button class="icon-btn" type="button" aria-label="Editar tarefa">✏️</button>
+              <button class="icon-btn" type="button" aria-label="Adicionar aos favoritos" aria-pressed="true">⭐</button>
+              <button class="icon-btn icon-btn--danger" type="button" aria-label="Excluir tarefa">🗑️</button>
+            </menu>
+          </article>
+        </li>
+
+        <li class="task-list__item">
+          <article class="task-card" aria-labelledby="t3-title">
+            <div class="task-card__main">
+              <input class="task-card__check" id="t3" name="t3" type="checkbox" aria-describedby="t3-meta" />
+              <label class="task-card__title" id="t3-title" for="t3">Estudar testes automatizados</label>
+            </div>
+            <div class="task-card__meta" id="t3-meta">
+              <span class="badge badge--priority-low">Baixa</span>
+              <time class="badge badge--date" datetime="2025-10-02">2 out</time>
+              <span class="tag">Estudos</span>
+            </div>
+            <menu class="task-card__actions" type="toolbar">
+              <button class="icon-btn" type="button" aria-label="Editar tarefa">✏️</button>
+              <button class="icon-btn" type="button" aria-label="Adicionar aos favoritos" aria-pressed="false">⭐</button>
+              <button class="icon-btn icon-btn--danger" type="button" aria-label="Excluir tarefa">🗑️</button>
+            </menu>
+          </article>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="app-footer" role="contentinfo">
+    <div class="app-footer__inner container">
+      <p class="app-footer__brand">© 2025 Produtivo</p>
+      <nav class="app-footer__nav" aria-label="Links do rodapé">
+        <ul class="app-footer__list">
+          <li class="app-footer__item"><a class="app-footer__link" href="#">Privacidade</a></li>
+          <li class="app-footer__item"><a class="app-footer__link" href="#">Termos</a></li>
+          <li class="app-footer__item"><a class="app-footer__link" href="#">Contato</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- JSON-LD para SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Produtivo — Gerenciador de Tarefas",
+    "url": "https://seu-dominio.com/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://seu-dominio.com/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+</body>
+</html>
