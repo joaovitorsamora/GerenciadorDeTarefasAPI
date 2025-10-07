@@ -1,8 +1,12 @@
 ﻿using GerenciadorDeTarefas.Data;
+using GerenciadorDeTarefas.DTOs;
 using GerenciadorDeTarefas.Models;
+using GerenciadorDeTarefas.Repository.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GerenciadorDeTarefas.Controllers
@@ -11,61 +15,99 @@ namespace GerenciadorDeTarefas.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
+        private readonly IUsuarioRepository _repository;
 
-        private readonly SistemaDeTarefaDBContext _context;
-
-        public UsuarioController(SistemaDeTarefaDBContext context)
+        public UsuarioController(IUsuarioRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
-
+        
         [HttpGet]
-        public async Task<ActionResult<List<UsuarioModel>>> GetUsuario()
+        public async Task<ActionResult<IEnumerable<UsuarioDTO>>> GetUsuario()
         {
-            return await _context.Usuarios.ToListAsync();        
+            var usuario = await _repository.GetAllAsync();
+            var dtos = usuario.Select(u => new UsuarioDTO
+            {
+                Id = u.Id,
+                Nome = u.Nome,
+                Email = u.Email
+            });
+            return Ok(dtos);
         }
 
+        
+        [HttpGet("{id}")]
+        public async Task<ActionResult<UsuarioDTO>> GetUsuarioById(int id)
+        {
+            var usuario = await _repository.GetByIdAsync(id);
+
+            if (usuario == null) return NotFound();
+
+            var dto = new UsuarioDTO
+            {
+                Id = usuario.Id,
+                Nome = usuario.Nome,
+                Email = usuario.Email
+            };
+
+            return Ok(dto);
+        }
+
+        
         [HttpPost]
-
-        public async Task<ActionResult<UsuarioModel>> PostUsuario(UsuarioModel usuario)
+        public async Task<ActionResult<UsuarioDTO>> PostUsuario([FromBody] UsuarioDTO dto)
         {
-            _context.Usuarios.Add(usuario);
-            await _context.SaveChangesAsync();
-
-
-            return CreatedAtAction(nameof(GetUsuario), new { id = usuario.Id, usuario });
-        }
-
-        [HttpPut]
-        public async Task<ActionResult<UsuarioModel>> PutUsuario(int id, UsuarioModel usuario)
-        {
-            if (id != usuario.Id)
+           
+            if (string.IsNullOrWhiteSpace(dto.Nome) || string.IsNullOrWhiteSpace(dto.Email))
             {
-                return BadRequest();
+                return BadRequest("Nome e Email são obrigatórios.");
             }
 
-            _context.Entry(usuario).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            var usuarioExistente = new UsuarioModel
+            {
+                Nome = dto.Nome,
+                Email = dto.Email
+            };
+
+            await _repository.PostAsync(usuarioExistente);
+            await _repository.SaveChangesAsync();
+
+           
+            return CreatedAtAction(nameof(GetUsuarioById), new { id = usuarioExistente.Id }, new UsuarioDTO
+            {
+                Id = usuarioExistente.Id,
+                Nome = usuarioExistente.Nome,
+                Email = usuarioExistente.Email
+            });
+        }
+
+        
+        [HttpPut("{id}")]
+        public async Task<ActionResult> PutUsuario(int id, [FromBody] UsuarioDTO dto)
+        {
+            var usuarioExistente = await _repository.GetByIdAsync(id);
+            if (usuarioExistente == null) return NotFound();
+
+            usuarioExistente.Nome = dto.Nome;
+            usuarioExistente.Email = dto.Email;
+
+            await _repository.UpdateAsync(usuarioExistente);
+            await _repository.SaveChangesAsync();
             return NoContent();
         }
 
-        [HttpDelete]
-        public async Task<ActionResult<UsuarioModel>> DeleteUsuario(int id)
+        
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteUsuario(int id)
         {
-            var usuario = await _context.Usuarios.FindAsync(id);
+            var usuario = await _repository.GetByIdAsync(id);
 
-            if (usuario == null)
-            {
-                return BadRequest();
-            }
+            if (usuario == null) return NotFound();
 
-            _context.Usuarios.Remove(usuario);
-            await _context.SaveChangesAsync();
+            await _repository.DeleteAsync(usuario);
+            await _repository.SaveChangesAsync();
             return NoContent();
-
-
         }
-
     }
 }

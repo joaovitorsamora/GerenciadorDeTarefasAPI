@@ -5,5 +5,8 @@
         public int Id { get; set; }
         public string? Nome { get; set; }
         public string? Email { get; set; }
+
+        public ICollection<ProjetoModel> Projetos { get; set; } = new List<ProjetoModel>();
+        public ICollection<TarefaModel> Tarefas { get; set; } = new List<TarefaModel>();
     }
 }

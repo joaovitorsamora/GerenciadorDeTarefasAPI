@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using GerenciadorDeTarefas.Models;
 using GerenciadorDeTarefas.Data;
 using Microsoft.EntityFrameworkCore.InMemory;
+using GerenciadorDeTarefas.Repository.Interface;
+using GerenciadorDeTarefas.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +14,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<SistemaDeTarefaDBContext>(opt => opt.UseInMemoryDatabase("SistemaDeTarefaDB"));
-
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<IProjetoRepository, ProjetoRepository>();
+builder.Services.AddScoped<ITagRepository, TagRepository>();
+builder.Services.AddScoped<ITarefaRepository, TarefaRepository>();
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
