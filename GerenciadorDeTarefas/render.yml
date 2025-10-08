@@ -1,0 +1,8 @@
+﻿services:
+  - type: web
+    name: gerenciador-de-tarefas
+    env: docker
+    plan: free
+    autoDeploy: true
+    healthCheckPath: /
+    dockerCommand: dotnet GerenciadorDeTarefas.dll

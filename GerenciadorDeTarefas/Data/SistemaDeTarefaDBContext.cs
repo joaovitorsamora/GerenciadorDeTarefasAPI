@@ -11,12 +11,7 @@ namespace GerenciadorDeTarefas.Data
         public DbSet<TarefaModel> Tarefas { get; set; }
         public DbSet<TagModel> Tags { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<TarefaModel>()
-                .HasMany(t => t.Tags)
-                .WithMany(t => t.Tarefas);
-        }
+
 
     }
 
