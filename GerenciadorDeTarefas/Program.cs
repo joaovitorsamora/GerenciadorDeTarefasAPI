@@ -1,9 +1,10 @@
-using Microsoft.EntityFrameworkCore;
-using GerenciadorDeTarefas.Models;
 using GerenciadorDeTarefas.Data;
-using Microsoft.EntityFrameworkCore.InMemory;
-using GerenciadorDeTarefas.Repository.Interface;
+using GerenciadorDeTarefas.Models;
 using GerenciadorDeTarefas.Repository;
+using GerenciadorDeTarefas.Repository.Interface;
+using Microsoft.EntityFrameworkCore;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +15,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<SistemaDeTarefaDBContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+   options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
+);
+
 
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IProjetoRepository, ProjetoRepository>();

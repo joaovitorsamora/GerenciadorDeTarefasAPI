@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -15,10 +16,10 @@ namespace GerenciadorDeTarefas.Migrations
                 name: "Usuarios",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Nome = table.Column<string>(type: "text", nullable: true),
+                    Email = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -29,13 +30,13 @@ namespace GerenciadorDeTarefas.Migrations
                 name: "Projetos",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UsuarioId = table.Column<int>(type: "int", nullable: false),
-                    UsuarioNome = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProjetoId = table.Column<int>(type: "int", nullable: false),
-                    UsuarioModelId = table.Column<int>(type: "int", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Nome = table.Column<string>(type: "text", nullable: true),
+                    UsuarioId = table.Column<int>(type: "integer", nullable: false),
+                    UsuarioNome = table.Column<string>(type: "text", nullable: true),
+                    ProjetoId = table.Column<int>(type: "integer", nullable: false),
+                    UsuarioModelId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -51,10 +52,10 @@ namespace GerenciadorDeTarefas.Migrations
                 name: "Tags",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProjetoModelId = table.Column<int>(type: "int", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Nome = table.Column<string>(type: "text", nullable: true),
+                    ProjetoModelId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -70,14 +71,14 @@ namespace GerenciadorDeTarefas.Migrations
                 name: "Tarefas",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Titulo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DataCriacao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    StatusTarefa = table.Column<int>(type: "int", nullable: true),
-                    PrioridadeTarefa = table.Column<int>(type: "int", nullable: true),
-                    ProjetoId = table.Column<int>(type: "int", nullable: false),
-                    UsuarioId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Titulo = table.Column<string>(type: "text", nullable: true),
+                    DataCriacao = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    StatusTarefa = table.Column<int>(type: "integer", nullable: true),
+                    PrioridadeTarefa = table.Column<int>(type: "integer", nullable: true),
+                    ProjetoId = table.Column<int>(type: "integer", nullable: false),
+                    UsuarioId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -100,8 +101,8 @@ namespace GerenciadorDeTarefas.Migrations
                 name: "TagModelTarefaModel",
                 columns: table => new
                 {
-                    TagsId = table.Column<int>(type: "int", nullable: false),
-                    TarefasId = table.Column<int>(type: "int", nullable: false)
+                    TagsId = table.Column<int>(type: "integer", nullable: false),
+                    TarefasId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
