@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GerenciadorDeTarefas.Migrations
 {
     [DbContext(typeof(SistemaDeTarefaDBContext))]
-    [Migration("20251008130331_InitialCreate")]
+    [Migration("20251009161128_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

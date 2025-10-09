@@ -1,7 +1,0 @@
-﻿services:
-  - type: web
-    name: gerenciadordetarefasapi
-    env: docker
-    plan: free
-    branch: master
-    autoDeploy: true
