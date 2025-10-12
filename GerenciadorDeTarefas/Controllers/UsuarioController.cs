@@ -49,43 +49,6 @@ namespace GerenciadorDeTarefas.Controllers
             return Ok(dto);
         }
 
-       
-        [HttpPost]
-        [Route("register")] 
-        public async Task<ActionResult<UsuarioResponseDTO>> PostUsuario([FromBody] UsuarioRegisterDTO dto)
-        {
-            
-            if (string.IsNullOrWhiteSpace(dto.Nome) || string.IsNullOrWhiteSpace(dto.Email) || string.IsNullOrWhiteSpace(dto.Senha))
-            {
-                return BadRequest("Nome, Email e Senha são obrigatórios para o registro.");
-            }
-
-            var usuarioExistente = (await _repository.GetAllAsync()).FirstOrDefault(u => u.Email == dto.Email);
-            if (usuarioExistente != null)
-            {
-                return Conflict("Este e-mail já está cadastrado.");
-            }
-
-           
-            string senhaHash = BCrypt.Net.BCrypt.HashPassword(dto.Senha);
-
-            var novoUsuario = new UsuarioModel
-            {
-                Nome = dto.Nome,
-                Email = dto.Email,
-                SenhaHash = senhaHash 
-            };
-
-            await _repository.PostAsync(novoUsuario);
-            await _repository.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetUsuarioById), new { id = novoUsuario.Id }, new UsuarioResponseDTO
-            {
-                Id = novoUsuario.Id,
-                Nome = novoUsuario.Nome,
-                Email = novoUsuario.Email
-            });
-        }
 
         [Authorize] 
         [HttpPut("{id}")]

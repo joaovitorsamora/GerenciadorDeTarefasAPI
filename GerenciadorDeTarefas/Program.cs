@@ -1,12 +1,14 @@
+using GerenciadorDeTarefas.Controllers; 
 using GerenciadorDeTarefas.Data;
 using GerenciadorDeTarefas.Repository;
 using GerenciadorDeTarefas.Repository.Interface;
-using Microsoft.EntityFrameworkCore;
+using GerenciadorDeTarefas.Service;
+using GerenciadorDeTarefas.Service.Interface;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using System.Security.Claims;
-using GerenciadorDeTarefas.Controllers; 
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,7 +60,7 @@ builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IProjetoRepository, ProjetoRepository>();
 builder.Services.AddScoped<ITagRepository, TagRepository>();
 builder.Services.AddScoped<ITarefaRepository, TarefaRepository>();
-
+builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend",
