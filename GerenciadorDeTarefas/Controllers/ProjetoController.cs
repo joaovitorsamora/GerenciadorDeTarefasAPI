@@ -35,11 +35,9 @@ namespace GerenciadorDeTarefas.Controllers
                     Id = t.Id,
                     Titulo = t.Titulo,
                     DataCriacao = t.DataCriacao,
-                    StatusTarefa = t.StatusTarefa,
                     PrioridadeTarefa = t.PrioridadeTarefa,
                     ProjetoId = t.ProjetoId,
                     UsuarioId = t.UsuarioId,
-                    UsuarioNome = t.Usuario?.Nome,
                     Tags = t.Tags?.Select(tag => tag.Nome).ToList()
                 }).ToList()
             };
@@ -63,11 +61,9 @@ namespace GerenciadorDeTarefas.Controllers
                     Id = t.Id,
                     Titulo = t.Titulo,
                     DataCriacao = t.DataCriacao,
-                    StatusTarefa = t.StatusTarefa,
                     PrioridadeTarefa = t.PrioridadeTarefa,
                     ProjetoId = t.ProjetoId,
                     UsuarioId = t.UsuarioId,
-                    UsuarioNome = t.Usuario?.Nome,
                     ProjetoNome = t.Projeto?.Nome,
                     Tags = t.Tags?.Select(tag => tag.Nome).ToList()
                 }).ToList()
@@ -87,10 +83,8 @@ namespace GerenciadorDeTarefas.Controllers
                 DataCriacao = t.DataCriacao,
                 ProjetoId = t.ProjetoId,
                 UsuarioId = t.UsuarioId,
-                StatusTarefa = t.StatusTarefa,
                 PrioridadeTarefa = t.PrioridadeTarefa,
                 ProjetoNome = t.Projeto.Nome,
-                UsuarioNome = t.Usuario.Nome,
                 Tags = t.Tags.Select(tag => tag.Nome).ToList()
             }).ToList();
 
