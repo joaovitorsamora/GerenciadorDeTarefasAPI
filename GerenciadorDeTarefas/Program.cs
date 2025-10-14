@@ -13,7 +13,7 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 
-var jwtSecretKey = builder.Configuration["Jwt:Key"] ?? "UmaChaveSecretaMuitoLongaESeguraQueDeveEstarNoAppSettings";
+var jwtSecretKey = builder.Configuration["Jwt:Key"] ?? "UmaChaveSecretaMuitoLongaESegura";
 var issuer = builder.Configuration["Jwt:Issuer"] ?? "GerenciadorDeTarefasAPI";
 var audience = builder.Configuration["Jwt:Audience"] ?? "FrontendApp";
 
