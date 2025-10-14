@@ -1,4 +1,6 @@
-﻿namespace GerenciadorDeTarefas.DTOs
+﻿using GerenciadorDeTarefas.Models;
+
+namespace GerenciadorDeTarefas.DTOs
 {
     public class TarefaDTO
     {
@@ -8,7 +10,7 @@
         public int UsuarioId { get; set; }
 
         
-        public string Titulo { get; set; }
+        public string? Titulo { get; set; }
         public DateTime DataCriacao { get; set; }
         public string? ProjetoNome { get; set; }
 

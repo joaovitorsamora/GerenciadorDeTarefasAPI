@@ -38,7 +38,8 @@ namespace GerenciadorDeTarefas.Controllers
                 DataCriacao = t.DataCriacao,
                 ProjetoId = t.ProjetoId,
                 UsuarioId = t.UsuarioId,
-                ProjetoNome = t.Projeto?.Nome,
+                ProjetoNome = t.Projeto.Nome,
+                StatusTarefa = Enum.Parse<Status>(t.StatusTarefa.ToString()),
                 PrioridadeTarefa = Enum.Parse<Prioridade>(t.PrioridadeTarefa.ToString()),
                 Tags = t.Tags?.Select(tag => tag.Nome).ToList()
             });
@@ -67,7 +68,7 @@ namespace GerenciadorDeTarefas.Controllers
                 DataCriacao = tarefa.DataCriacao,
                 ProjetoId = tarefa.ProjetoId,
                 UsuarioId = tarefa.UsuarioId,
-                ProjetoNome = tarefa.Projeto?.Nome,
+                ProjetoNome = tarefa.Projeto.Nome,
                 PrioridadeTarefa = prioridade,
                 Tags = tarefa.Tags?.Select(tag => tag.Nome).ToList()
             });
@@ -164,7 +165,7 @@ namespace GerenciadorDeTarefas.Controllers
                 DataCriacao = tarefa.DataCriacao,
                 ProjetoId = tarefa.ProjetoId,
                 UsuarioId = tarefa.UsuarioId,
-                ProjetoNome = projeto?.Nome,
+                ProjetoNome = projeto.Nome,
                 PrioridadeTarefa = prioridade,
                 StatusTarefa = status, 
                 Tags = tarefa.Tags.Select(t => t.Nome).ToList()
