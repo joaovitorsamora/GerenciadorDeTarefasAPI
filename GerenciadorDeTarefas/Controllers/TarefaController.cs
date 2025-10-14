@@ -96,7 +96,6 @@ namespace GerenciadorDeTarefas.Controllers
             if (!Enum.TryParse<Prioridade>(dto.PrioridadeTarefa.ToString(), true, out var prioridade))
                 return BadRequest("PrioridadeTarefa inválida.");
 
-            // 3. Gerencia o projeto
             ProjetoModel projeto = null;
             if (!string.IsNullOrWhiteSpace(dto.ProjetoNome))
             {
@@ -121,15 +120,14 @@ namespace GerenciadorDeTarefas.Controllers
                 }
             }
 
-            var tagsExistentes = await tagRepository.GetAllAsync();
-            var tagsFinais = new List<TagModel>();
-
+            var tags = new List<TagModel>();
             if (dto.Tags != null && dto.Tags.Any())
             {
+                var todasTags = await tagRepository.GetAllAsync();
                 foreach (var tagNome in dto.Tags)
                 {
-                    var tag = tagsExistentes.FirstOrDefault(t =>
-                        t.Nome.Trim().Equals(tagNome.Trim(), StringComparison.OrdinalIgnoreCase));
+                    var tag = todasTags.FirstOrDefault(t =>
+                        string.Equals(t.Nome.Trim(), tagNome.Trim(), StringComparison.OrdinalIgnoreCase));
 
                     if (tag == null)
                     {
@@ -138,7 +136,7 @@ namespace GerenciadorDeTarefas.Controllers
                         await tagRepository.SaveChangesAsync();
                     }
 
-                    tagsFinais.Add(tag);
+                    tags.Add(tag);
                 }
             }
 
@@ -151,7 +149,7 @@ namespace GerenciadorDeTarefas.Controllers
                 PrioridadeTarefa = prioridade,
                 ProjetoId = projeto.Id,
                 UsuarioId = usuarioId,
-                Tags = tagsFinais
+                Tags = tags
             };
 
             await _repository.PostAsync(tarefa);
@@ -167,7 +165,7 @@ namespace GerenciadorDeTarefas.Controllers
                 ProjetoNome = projeto.Nome,
                 PrioridadeTarefa = prioridade,
                 StatusTarefa = status,
-                Tags = tagsFinais.Select(t => t.Nome).ToList()
+                Tags = tarefa.Tags.Select(t => t.Nome).ToList()
             };
 
             return CreatedAtAction(nameof(GetByIdAsync), new { id = tarefa.Id, usuarioId }, dtoResult);
