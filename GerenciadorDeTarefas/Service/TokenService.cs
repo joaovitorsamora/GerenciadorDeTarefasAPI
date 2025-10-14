@@ -19,7 +19,7 @@ namespace GerenciadorDeTarefas.Service
         public string GenerateToken(UsuarioModel user)
         {
             // Pega as chaves da configuração. Use os valores padrão se a chave não for encontrada (segurança)
-            var jwtSecretKey = _configuration["Jwt:Key"] ?? "UmaChaveSecretaMuitoLongaESegura";
+            var jwtSecretKey = _configuration["Jwt:Key"] ?? "UmaChaveSecretaMuitoLongaESegura123!";
             var issuer = _configuration["Jwt:Issuer"] ?? "GerenciadorDeTarefasAPI";
             var audience = _configuration["Jwt:Audience"] ?? "FrontendApp";
 
