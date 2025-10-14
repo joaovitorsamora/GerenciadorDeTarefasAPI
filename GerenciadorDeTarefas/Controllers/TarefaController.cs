@@ -27,6 +27,8 @@ namespace GerenciadorDeTarefas.Controllers
         {
             var tarefas = await _repository.GetAllAsync();
 
+           
+
             var dtos = tarefas.Select(t => new TarefaDTO
             {
                 Id = t.Id,
@@ -36,8 +38,8 @@ namespace GerenciadorDeTarefas.Controllers
                 UsuarioId = t.UsuarioId,
                 UsuarioNome = t.Usuario?.Nome,
                 ProjetoNome = t.Projeto?.Nome,
-                StatusTarefa = t.StatusTarefa,
-                PrioridadeTarefa = t.PrioridadeTarefa,
+                StatusTarefa = Enum.Parse<Status>(t.StatusTarefa.ToString()),
+                PrioridadeTarefa = Enum.Parse<Prioridade>(t.PrioridadeTarefa.ToString()),
                 Tags = t.Tags?.Select(tag => tag.Nome).ToList()
             });
 
@@ -55,6 +57,12 @@ namespace GerenciadorDeTarefas.Controllers
             if (usuarioId.HasValue && tarefa.UsuarioId != usuarioId.Value)
                 return Forbid();
 
+            if (!Enum.TryParse<Status>(tarefa.StatusTarefa.ToString(), true, out var status))
+                return BadRequest("StatusTarefa inválido.");
+
+            if (!Enum.TryParse<Prioridade>(tarefa.PrioridadeTarefa.ToString(), true, out var prioridade))
+                return BadRequest("PrioridadeTarefa inválida.");
+
             return Ok(new TarefaDTO
             {
                 Id = tarefa.Id,
@@ -64,8 +72,8 @@ namespace GerenciadorDeTarefas.Controllers
                 UsuarioId = tarefa.UsuarioId,
                 UsuarioNome = tarefa.Usuario?.Nome,
                 ProjetoNome = tarefa.Projeto?.Nome,
-                StatusTarefa = tarefa.StatusTarefa,
-                PrioridadeTarefa = tarefa.PrioridadeTarefa,
+                StatusTarefa = status,
+                PrioridadeTarefa = prioridade,
                 Tags = tarefa.Tags?.Select(tag => tag.Nome).ToList()
             });
         }
