@@ -36,8 +36,8 @@ namespace GerenciadorDeTarefas.Controllers
                 UsuarioId = t.UsuarioId,
                 UsuarioNome = t.Usuario?.Nome,
                 ProjetoNome = t.Projeto?.Nome,
-                StatusTarefa = t.StatusTarefa.ToString(),
-                PrioridadeTarefa = t.PrioridadeTarefa.ToString(),
+                StatusTarefa = t.StatusTarefa,
+                PrioridadeTarefa = t.PrioridadeTarefa,
                 Tags = t.Tags?.Select(tag => tag.Nome).ToList()
             });
 
@@ -64,8 +64,8 @@ namespace GerenciadorDeTarefas.Controllers
                 UsuarioId = tarefa.UsuarioId,
                 UsuarioNome = tarefa.Usuario?.Nome,
                 ProjetoNome = tarefa.Projeto?.Nome,
-                StatusTarefa = tarefa.StatusTarefa.ToString(),
-                PrioridadeTarefa = tarefa.PrioridadeTarefa.ToString(),
+                StatusTarefa = tarefa.StatusTarefa,
+                PrioridadeTarefa = tarefa.PrioridadeTarefa,
                 Tags = tarefa.Tags?.Select(tag => tag.Nome).ToList()
             });
         }
@@ -81,10 +81,10 @@ namespace GerenciadorDeTarefas.Controllers
             if (dto.UsuarioId <= 0)
                 return BadRequest("UsuarioId deve ser informado e maior que zero.");
 
-            if (!Enum.TryParse<Status>(dto.StatusTarefa, true, out var status))
+            if (!Enum.TryParse<Status>(dto.StatusTarefa.ToString(), true, out var status))
                 return BadRequest("StatusTarefa inválido.");
 
-            if (!Enum.TryParse<Prioridade>(dto.PrioridadeTarefa, true, out var prioridade))
+            if (!Enum.TryParse<Prioridade>(dto.PrioridadeTarefa.ToString(), true, out var prioridade))
                 return BadRequest("PrioridadeTarefa inválida.");
 
             
@@ -159,8 +159,8 @@ namespace GerenciadorDeTarefas.Controllers
                 ProjetoNome = projeto.Nome,
                 UsuarioId = tarefa.UsuarioId,
                 UsuarioNome = usuario.Nome,
-                StatusTarefa = tarefa.StatusTarefa.ToString(),
-                PrioridadeTarefa = tarefa.PrioridadeTarefa.ToString(),
+                StatusTarefa = status,
+                PrioridadeTarefa = prioridade,
                 Tags = tarefa.Tags.Select(t => t.Nome).ToList()
             };
 
@@ -201,10 +201,10 @@ namespace GerenciadorDeTarefas.Controllers
                 await projetoRepository.SaveChangesAsync();
             }
 
-            if (!Enum.TryParse<Status>(dto.StatusTarefa, true, out var status))
+            if (!Enum.TryParse<Status>(dto.StatusTarefa.ToString(), true, out var status))
                 return BadRequest("StatusTarefa não pode ser nulo.");
 
-            if (!Enum.TryParse<Prioridade>(dto.PrioridadeTarefa, true, out var prioridade))
+            if (!Enum.TryParse<Prioridade>(dto.PrioridadeTarefa.ToString(), true, out var prioridade))
                 return BadRequest("PrioridadeTarefa não pode ser nulo.");
 
             var tarefaExistente = await _repository.GetByIdAsync(id);

@@ -12,8 +12,8 @@
         public string? ProjetoNome { get; set; }
         public int UsuarioId { get; set; }
         public int? ProjetoId { get; set; }
-        public string StatusTarefa { get; set; }
-        public string PrioridadeTarefa { get; set; }
+        public Status? StatusTarefa { get; set; }
+        public Prioridade? PrioridadeTarefa { get; set; }
         
         public List<string>? Tags { get; set; }
     }
