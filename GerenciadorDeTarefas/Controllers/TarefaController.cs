@@ -22,11 +22,12 @@ namespace GerenciadorDeTarefas.Controllers
             _repository = repository;
         }
 
-      
+
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TarefaDTO>>> GetAllAsync()
+        public async Task<ActionResult<IEnumerable<TarefaDTO>>> GetAllAsync([FromQuery] int? usuarioId = null)
         {
             var tarefas = await _repository.GetAllAsync();
+
 
             var dtos = tarefas.Select(t => new TarefaDTO
             {
@@ -35,14 +36,15 @@ namespace GerenciadorDeTarefas.Controllers
                 DataCriacao = t.DataCriacao,
                 ProjetoId = t.ProjetoId,
                 UsuarioId = t.UsuarioId,
-                ProjetoNome = t.Projeto?.Nome,
-                StatusTarefa = t.StatusTarefa,
-                PrioridadeTarefa = t.PrioridadeTarefa,
+                ProjetoNome = t.Projeto.Nome,
+                StatusTarefa = Enum.Parse<Status>(t.StatusTarefa.ToString()),
+                PrioridadeTarefa = Enum.Parse<Prioridade>(t.PrioridadeTarefa.ToString()),
                 Tags = t.Tags?.Select(tag => tag.Nome).ToList()
             });
 
             return Ok(dtos);
         }
+
 
         [HttpGet("{id}", Name = "GetTarefa")]
         public async Task<ActionResult<TarefaDTO>> GetByIdAsync(int id, [FromQuery] int? usuarioId = null)
