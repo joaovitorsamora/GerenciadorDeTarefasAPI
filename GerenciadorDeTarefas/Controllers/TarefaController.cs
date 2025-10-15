@@ -138,7 +138,7 @@ namespace GerenciadorDeTarefas.Controllers
             var tarefa = new TarefaModel
             {
                 Titulo = dto.Titulo.Trim(),
-                DataCriacao = dto.DataCriacao,
+                DataCriacao = DateTime.SpecifyKind(dto.DataCriacao, DateTimeKind.Utc),
                 StatusTarefa = status,
                 PrioridadeTarefa = prioridade,
                 ProjetoId = projeto.Id,
