@@ -33,7 +33,7 @@ namespace GerenciadorDeTarefas.Controllers
             {
                 Id = t.Id,
                 Titulo = t.Titulo,
-                DataCriacao = t.DataCriacao.ToString("dd-MM-yyyy"),
+                DataCriacao = t.DataCriacao,
                 ProjetoId = t.ProjetoId,
                 UsuarioId = t.UsuarioId,
                 ProjetoNome = t.Projeto.Nome,
@@ -60,7 +60,7 @@ namespace GerenciadorDeTarefas.Controllers
             {
                 Id = tarefa.Id,
                 Titulo = tarefa.Titulo,
-                DataCriacao = tarefa.DataCriacao.ToString("dd-MM-yyyy"),
+                DataCriacao = tarefa.DataCriacao,
                 ProjetoId = tarefa.ProjetoId,
                 UsuarioId = tarefa.UsuarioId,
                 ProjetoNome = tarefa.Projeto?.Nome,
