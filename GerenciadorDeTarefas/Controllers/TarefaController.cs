@@ -244,7 +244,8 @@ namespace GerenciadorDeTarefas.Controllers
                     {
                         tag = new TagModel { Nome = tagNome.Trim() };
                         await tagRepository.PostAsync(tag);
-                        }
+                        await tagRepository.SaveChangesAsync();
+                    }
 
                     tags.Add(tag);
                 }
