@@ -11,7 +11,7 @@ namespace GerenciadorDeTarefas.DTOs
 
         
         public string? Titulo { get; set; }
-        public DateTime DataCriacao { get; set; }
+        public string DataCriacao { get; set; }
         public string? ProjetoNome { get; set; }
 
         

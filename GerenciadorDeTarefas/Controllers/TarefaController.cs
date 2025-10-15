@@ -33,7 +33,7 @@ namespace GerenciadorDeTarefas.Controllers
             {
                 Id = t.Id,
                 Titulo = t.Titulo,
-                DataCriacao = t.DataCriacao,
+                DataCriacao = t.DataCriacao.ToString("dd-MM-yyyy"),
                 ProjetoId = t.ProjetoId,
                 UsuarioId = t.UsuarioId,
                 ProjetoNome = t.Projeto.Nome,
@@ -60,7 +60,7 @@ namespace GerenciadorDeTarefas.Controllers
             {
                 Id = tarefa.Id,
                 Titulo = tarefa.Titulo,
-                DataCriacao = tarefa.DataCriacao,
+                DataCriacao = tarefa.DataCriacao.ToString("dd-MM-yyyy"),
                 ProjetoId = tarefa.ProjetoId,
                 UsuarioId = tarefa.UsuarioId,
                 ProjetoNome = tarefa.Projeto?.Nome,
@@ -139,7 +139,7 @@ namespace GerenciadorDeTarefas.Controllers
             var tarefa = new TarefaModel
             {
                 Titulo = dto.Titulo.Trim(),
-                DataCriacao = DateTime.SpecifyKind(dto.DataCriacao, DateTimeKind.Utc),
+                DataCriacao = dto.DataCriacao,
                 StatusTarefa = status,
                 PrioridadeTarefa = prioridade,
                 ProjetoId = projeto.Id,
