@@ -113,7 +113,7 @@ namespace GerenciadorDeTarefas.Controllers
                 }
             }
 
-            
+
             var tags = new List<TagModel>();
             if (dto.Tags != null && dto.Tags.Any())
             {
@@ -125,16 +125,15 @@ namespace GerenciadorDeTarefas.Controllers
 
                     if (tag == null)
                     {
+                        
                         tag = new TagModel { Nome = tagNome.Trim() };
                         await tagRepository.PostAsync(tag);
-                        
-                    }
+                        }
 
                     tags.Add(tag);
                 }
             }
 
-            
             var tarefa = new TarefaModel
             {
                 Titulo = dto.Titulo.Trim(),
