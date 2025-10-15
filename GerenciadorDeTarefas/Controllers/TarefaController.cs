@@ -44,7 +44,7 @@ namespace GerenciadorDeTarefas.Controllers
             return Ok(dtos);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetTarefa")]
         public async Task<ActionResult<TarefaDTO>> GetByIdAsync(int id, [FromQuery] int? usuarioId = null)
         {
             var tarefa = await _repository.GetByIdAsync(id);
@@ -162,7 +162,7 @@ namespace GerenciadorDeTarefas.Controllers
                 Tags = tarefa.Tags.Select(t => t.Nome).ToList()
             };
 
-            return CreatedAtAction(nameof(GetByIdAsync), new { id = tarefa.Id, usuarioId }, dtoResult);
+            return CreatedAtRoute("GetTarefa", new { id = tarefa.Id, usuarioId }, dtoResult);
         }
 
 
