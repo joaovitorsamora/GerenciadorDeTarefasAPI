@@ -68,8 +68,6 @@ namespace GerenciadorDeTarefas.Controllers
             });
         }
 
--------------------------------------------------------------------------------
-
         [Authorize]
         [HttpPost]
         public async Task<ActionResult<TarefaDTO>> PostAsync(
