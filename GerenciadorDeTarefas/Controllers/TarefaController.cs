@@ -23,28 +23,33 @@ namespace GerenciadorDeTarefas.Controllers
         }
 
 
+        [Authorize]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TarefaDTO>>> GetAllAsync([FromQuery] int? usuarioId = null)
+        public async Task<ActionResult<IEnumerable<TarefaDTO>>> GetAllAsync()
         {
+            
+            if (!int.TryParse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value, out var loggedInUserId))
+                return Unauthorized("Usuário não autenticado ou token inválido.");
+
+           
             var tarefas = await _repository.GetAllAsync();
+            var tarefasDoUsuario = tarefas.Where(t => t.UsuarioId == loggedInUserId);
 
-
-            var dtos = tarefas.Select(t => new TarefaDTO
+            var dtos = tarefasDoUsuario.Select(t => new TarefaDTO
             {
                 Id = t.Id,
                 Titulo = t.Titulo,
                 DataCriacao = t.DataCriacao,
                 ProjetoId = t.ProjetoId,
                 UsuarioId = t.UsuarioId,
-                ProjetoNome = t.Projeto.Nome,
-                StatusTarefa = Enum.Parse<Status>(t.StatusTarefa.ToString()),
-                PrioridadeTarefa = Enum.Parse<Prioridade>(t.PrioridadeTarefa.ToString()),
+                ProjetoNome = t.Projeto?.Nome,
+                StatusTarefa = t.StatusTarefa,
+                PrioridadeTarefa = t.PrioridadeTarefa,
                 Tags = t.Tags?.Select(tag => tag.Nome).ToList()
             });
 
             return Ok(dtos);
         }
-
 
         [HttpGet("{id}", Name = "GetTarefa")]
         public async Task<ActionResult<TarefaDTO>> GetByIdAsync(int id, [FromQuery] int? usuarioId = null)
