@@ -32,6 +32,27 @@ namespace GerenciadorDeTarefas.Controllers
             return Ok(dtos);
         }
 
+        [Authorize]
+        [HttpGet("me")]
+        public async Task<ActionResult<UsuarioResponseDTO>> GetMe()
+        {
+           
+            var loggedInUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+
+            var usuario = await _repository.GetByIdAsync(loggedInUserId);
+            if (usuario == null) return NotFound();
+
+            var dto = new UsuarioResponseDTO
+            {
+                Id = usuario.Id,
+                Nome = usuario.Nome,
+                Email = usuario.Email
+            };
+
+            return Ok(dto);
+        }
+
+
         [HttpGet("{id}")]
         public async Task<ActionResult<UsuarioResponseDTO>> GetUsuarioById(int id)
         {
