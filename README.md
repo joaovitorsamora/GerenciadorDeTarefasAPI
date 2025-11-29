@@ -1,33 +1,45 @@
-# Task Management System (Full Stack)
+# 💻 Task Management API (ASP.NET Core Web API)
 
-Uma solução completa de gerenciamento de tarefas que inclui autenticação JWT e funcionalidades CRUD, demonstrando proficiência em desenvolvimento Full Stack moderno.
+Uma API RESTful robusta, construída em C# com ASP.NET Core, projetada para gerenciar dados de tarefas, projetos e usuários, com segurança baseada em JWT (JSON Web Tokens).
 
-## 🚀 Tecnologias
+## 🚀 Tecnologias e Ferramentas
 
-### Frontend (Client)
-* **Framework:** React 18
-* **Linguagem:** TypeScript
-* **Estilização:** [Mencione sua biblioteca: Tailwind CSS / SASS]
-* **Gerenciamento de Estado:** Redux [ou Context API]
+* **Linguagem:** C#
+* **Framework:** ASP.NET Core Web API
+* **Banco de Dados:** [Mencione o DB: Ex: PostgreSQL / SQL Server]
+* **ORM:** [Mencione: Ex: Entity Framework Core]
+* **Segurança:** JSON Web Tokens (JWT) para autenticação e BCrypt para hashing de senhas.
+* **Documentação:** Swagger/OpenAPI (para testes e visualização de endpoints).
 
-### Backend (API)
-* **Framework:** ASP.NET Core Web API (C#)
-* **Autenticação:** JWT Token para segurança de rotas
-* **Banco de Dados:** [Mencione o DB: PostgreSQL / SQL Server]
-* **Segurança:** Hashing de senhas com BCrypt
-* **Design:** Arquitetura RESTful
+## 💡 Arquitetura e Estrutura
 
-## ✨ Principais Funcionalidades
+A API segue o princípio da **Separação de Preocupações**, com uma arquitetura que inclui:
 
-* **Autenticação:** Registro e Login de Usuários com Tokens JWT.
-* **CRUD Completo:** Criação, Leitura, Edição e Exclusão de Tarefas.
-* **Filtros:** Busca por status, prioridade (Alta, Média, Baixa) e projetos.
-* **Estrutura:** Separação clara entre camadas de aplicação (Controllers, Services, Repositories).
+* **Controllers:** Responsáveis por receber as requisições HTTP e retornar as respostas.
+* **Services:** Contêm a lógica de negócio principal.
+* **Repositories:** Abstraem a interação com o banco de dados.
+* **Autenticação:** Serviços dedicados para registro, login e geração de tokens JWT.
 
+## ✨ Endpoints Chave
 
-## 🛠 Como Rodar o Projeto
+| Método | Endpoint | Descrição | Requer Token? |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/api/Auth/register` | Cria um novo usuário. | Não |
+| `POST` | `/api/Auth/login` | Autentica e retorna um Token JWT. | Não |
+| `GET` | `/api/Tasks` | Lista todas as tarefas do usuário autenticado. | Sim |
+| `POST` | `/api/Tasks` | Cria uma nova tarefa. | Sim |
+| `PUT` | `/api/Tasks/{id}` | Atualiza uma tarefa existente. | Sim |
 
-1.  Clone ambos os repositórios (`TaskManagement-Client-ReactTS` e `TaskManagement-API-NETCore`).
-2.  **API:** Navegue até o diretório da API, instale as dependências e rode o projeto (ex: `dotnet run`).
-3.  **Client:** Navegue até o diretório do Client, instale as dependências (`npm install` ou `yarn`), e inicie (`npm start` ou `yarn start`).
-4.  Configure as variáveis de ambiente (`.env` file) para apontar o Client para o endereço da API.
+## 🔗 Link para o Frontend
+
+Esta API é consumida pela aplicação cliente Task Management:
+
+* **Repositório do Cliente:** https://github.com/joaovitorsamora/TaskManagement-Client-ReactTS
+
+## 🛠 Como Rodar Localmente
+
+1.  Clone este repositório: `git clone [URL]`
+2.  **Configuração do Banco de Dados:** Configure a *Connection String* no arquivo `appsettings.json`.
+3.  **Migrações:** Rode as migrações do Entity Framework (se aplicável) para criar o esquema do banco de dados.
+4.  **Execução:** Inicie o projeto no Visual Studio ou via linha de comando: `dotnet run`
+5.  Acesse o Swagger em `http://localhost:[Porta]/swagger` para testar os endpoints.
